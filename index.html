@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>NovaFusion OS</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<audio id="bootSound">
+<source src="sound/windows-11.mp3" type="audio/mp3">
+</audio>
+
+
+<audio id="horrorSound">
+<source src="sound/horror.mp3" type="audio/mp3">
+</audio>
+
+
+
+
+
+<div id="boot">
+
+<h1>NovaFusion OS</h1>
+
+<p>Starting system...</p>
+
+<div class="loader"></div>
+
+</div>
+
+
+
+
+
+
+<div id="login">
+
+
+<h1>NovaFusion</h1>
+
+
+<button onclick="login()">
+
+Enter System
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+<div id="desktop">
+
+
+
+<div class="icons">
+
+
+
+<div class="icon" onclick="openNovaPaint()">
+
+<img src="paint icon/icon.png">
+
+<span>
+Nova Paint
+</span>
+
+</div>
+
+
+
+
+
+<div class="icon">
+
+📁
+
+<span>
+Files
+</span>
+
+</div>
+
+
+
+
+
+<div class="icon">
+
+🌐
+
+<span>
+Browser
+</span>
+
+</div>
+
+
+
+
+
+<div class="icon">
+
+⚙️
+
+<span>
+Settings
+</span>
+
+</div>
+
+
+
+
+
+<div class="icon" onclick="openVirusWarning()">
+
+🦠
+
+<span>
+Virus Simulator
+</span>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div id="taskbar">
+
+
+<button id="startButton">
+
+☰
+
+</button>
+
+
+
+<span>
+
+NovaFusion OS
+
+</span>
+
+
+
+
+<button id="powerButton">
+
+⏻
+
+</button>
+
+
+
+
+<div id="clock"></div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div id="startMenu">
+
+
+<h2>
+Apps
+</h2>
+
+
+
+<button onclick="openNovaPaint()">
+
+🎨 Nova Paint
+
+</button>
+
+
+
+<button>
+
+📁 Files
+
+</button>
+
+
+
+<button>
+
+🌐 Browser
+
+</button>
+
+
+
+<button onclick="openVirusWarning()">
+
+🦠 Virus
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+<script src="script.js"></script>
+
+<script src="apps/paint.js"></script>
+
+<script src="apps/paintAI.js"></script>
+
+<script src="virus/virus.js"></script>
+
+<script src="shutdown/shutdown.js"></script>
+
+
+
+</body>
+
+</html>
