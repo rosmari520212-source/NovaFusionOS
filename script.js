@@ -1,28 +1,142 @@
-window.onload=function(){
+// NovaFusion OS Core
 
 
-let boot=document.getElementById("bootSound");
+const Nova = {
+
+version: "1.0",
+
+settings: {
+
+theme: "blue",
+
+wallpaper: "default"
+
+},
+
+apps: {}
+
+};
 
 
-boot.play().catch(()=>{
-
-console.log("Boot sound waiting");
-
-});
 
 
-
-setTimeout(function(){
-
-
-document.getElementById("boot").style.display="none";
+// STORAGE
 
 
-document.getElementById("login").style.display="flex";
+function saveNova(){
 
+localStorage.setItem(
+"NovaFusion",
+JSON.stringify(Nova)
+);
+
+}
+
+
+
+function loadNova(){
+
+let data = localStorage.getItem(
+"NovaFusion"
+);
+
+
+if(data){
+
+Object.assign(
+Nova,
+JSON.parse(data)
+);
+
+}
+
+
+}
+
+
+loadNova();
+
+
+
+
+
+
+// BOOT SYSTEM WITH SOUND FIX
+
+
+window.onload = function(){
+
+
+let bootSound = document.getElementById(
+"bootSound"
+);
+
+
+
+let boot = document.getElementById(
+"boot"
+);
+
+
+
+let loginScreen = document.getElementById(
+"login"
+);
+
+
+
+if(boot){
+
+setTimeout(()=>{
+
+
+boot.style.display="none";
+
+
+if(loginScreen){
+
+loginScreen.style.display="flex";
+
+}
 
 
 },4000);
+
+
+}
+
+
+
+
+
+// Sound waits for user click
+
+document.addEventListener(
+"click",
+
+function playBootSound(){
+
+
+if(bootSound){
+
+
+bootSound.play().catch(()=>{});
+
+
+}
+
+
+
+document.removeEventListener(
+"click",
+playBootSound
+);
+
+
+
+}
+
+);
 
 
 
@@ -35,13 +149,38 @@ document.getElementById("login").style.display="flex";
 
 
 
+// LOGIN
+
+
 function login(){
 
 
-document.getElementById("login").style.display="none";
+let loginScreen =
+document.getElementById("login");
 
 
-document.getElementById("desktop").style.display="block";
+let desktop =
+document.getElementById("desktop");
+
+
+
+if(loginScreen){
+
+loginScreen.style.display="none";
+
+}
+
+
+
+if(desktop){
+
+desktop.style.display="block";
+
+}
+
+
+
+loadApps();
 
 
 }
@@ -53,19 +192,23 @@ document.getElementById("desktop").style.display="block";
 
 
 
-
-
 // CLOCK
 
 
-setInterval(function(){
+setInterval(()=>{
 
 
-let time=new Date();
+let clock =
+document.getElementById("clock");
 
 
-document.getElementById("clock").innerHTML=
-time.toLocaleTimeString();
+
+if(clock){
+
+clock.innerHTML =
+new Date().toLocaleTimeString();
+
+}
 
 
 
@@ -78,16 +221,22 @@ time.toLocaleTimeString();
 
 
 
-
-
-
 // START MENU
 
 
-document.getElementById("startButton").onclick=function(){
+function openStart(){
 
 
-let menu=document.getElementById("startMenu");
+let menu =
+document.getElementById("startMenu");
+
+
+
+if(!menu){
+
+return;
+
+}
 
 
 
@@ -108,24 +257,207 @@ menu.style.display="block";
 }
 
 
+}
+
+
+
+
+
+
+
+
+// APP SYSTEM
+
+
+function registerApp(
+name,
+icon,
+openFunction
+){
+
+
+Nova.apps[name]={
+
+icon:icon,
+
+open:openFunction
+
 };
 
 
+saveNova();
+
+
+}
 
 
 
 
 
 
-// NOVA PAINT START
+
+function loadApps(){
 
 
-function launchPaint(){
+console.log(
+"NovaFusion apps loaded"
+);
 
 
-if(typeof openNovaPaint==="function"){
+}
 
-openNovaPaint();
+
+
+
+
+
+
+
+
+// WINDOW SYSTEM
+
+
+function createWindow(
+id,
+title,
+content
+){
+
+
+
+let old =
+document.getElementById(id);
+
+
+
+if(old){
+
+old.remove();
+
+}
+
+
+
+let win =
+document.createElement("div");
+
+
+
+win.id=id;
+
+
+win.className="novaWindow";
+
+
+
+win.innerHTML = `
+
+<div class="windowTop">
+
+${title}
+
+<button onclick="closeWindow('${id}')">
+
+X
+
+</button>
+
+</div>
+
+
+<div class="windowContent">
+
+${content}
+
+</div>
+
+`;
+
+
+
+document.body.appendChild(win);
+
+
+
+}
+
+
+
+
+
+
+
+function closeWindow(id){
+
+
+let win =
+document.getElementById(id);
+
+
+
+if(win){
+
+win.remove();
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+// SETTINGS STORAGE
+
+
+function setNovaSetting(
+name,
+value
+){
+
+
+Nova.settings[name]=value;
+
+
+saveNova();
+
+
+}
+
+
+
+
+
+
+
+
+
+// UPDATER CONNECTION
+
+
+function openUpdater(){
+
+
+if(typeof NovaUpdater === "function"){
+
+
+NovaUpdater();
+
+
+}
+
+else{
+
+
+alert(
+"Updater not loaded"
+);
+
 
 }
 
